@@ -21,5 +21,11 @@ def count_bobs(s):
 def odd(x):
     return x % 2 == 0
     
+def item_order(order):
+    water = order.count('water')
+    hamburger = order.count('hamburger')
+    salad = order.count('salad')
+    return "salad:%d hamburger:%d water:%d" % (salad, hamburger, water)
+    
 
-print(count_bobs("Hellobobobral"))
+print(item_order('water'))
