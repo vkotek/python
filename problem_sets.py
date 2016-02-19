@@ -27,5 +27,8 @@ def item_order(order):
     salad = order.count('salad')
     return "salad:%d hamburger:%d water:%d" % (salad, hamburger, water)
     
+def ps2_1(balance,annualInterestRate,monthlyPaymentRate):
+    for month in range(1,13):
+        print(month)
 
-print(item_order('water'))
+ps2_1(1,1,1)    
