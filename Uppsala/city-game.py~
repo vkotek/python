@@ -83,7 +83,7 @@ def getCities(xContinent,xSize,filename):
                 pos_long = row[5]
                 cityList.append([city,country,pop,pos_lat,pos_long])
         print "Total cities found:", len(cityList)
-        xCount = int(raw_input("\nNumber of cities to select: "))
+        xCount = int(raw_input("Number of cities to select: "))
     csvfile.close()
     
     filename = "%s_%d" % (filename, xCount)

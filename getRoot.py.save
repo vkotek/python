@@ -10,4 +10,5 @@ def getRoot(x, guess,iters):
         print("%f\t%f\t%f\t%f" % (guess_old,b,a,guess))
     return guess
 
-print(getRoot(40,3,10))
+while True:
+    print(getRoot(input(,3,10))
