@@ -30,17 +30,14 @@ class Window(Frame):
         quitButton = Button(self, text = "Quit", command=self.client_exit)
         quitButton.place(x=260,y=200)
         
-        self.state = 0
-        toggleText = StringVar()
-        toggleText.set("On")
-        toggleButton = Button(self, textvariable = toggleText, command=self.client_toggle)
+        toggleButton = Button(self, text = "DO", command=self.client_toggle)
         toggleButton.place(x=20,y=20)
     
     def client_exit(self):
         exit()
     
     def client_toggle(self):
-        toggleText.set("Off")
+        exit()
         
 
 root = Tk()
