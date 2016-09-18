@@ -1,11 +1,6 @@
-#!/usr/bin/python
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Sep  9 23:20:25 2016
 
-@author: prometheus
-"""
-res = "320x240"
+res = "320x480"
 
 from tkinter import *
 
@@ -24,9 +19,9 @@ class Window(Frame):
         menu = Menu(self.master)
         self.master.config(menu=menu)
         
-        file = Menu(menu)
-        file.add_command(label="exit", command=self.client_exit)
-        menu.add_cascade(label="file", menu=file)
+        #file = Menu(menu)
+        #file.add_command(label="exit", command=self.client_exit)
+        #menu.add_cascade(label="file", menu=file)
         
         quitButton = Button(self, text = "Quit", command=self.client_exit)
         quitButton.place(x=260,y=200)
@@ -46,10 +41,9 @@ root = Tk()
 w = Label(root, text="MyScript")
 root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
-root.geometry(res.format(root.winfo_screenwidth(), root.winfo_screenheight()))
+root.geometry("480x320")
 root.focus_set()
 
 app = Window(root)
-
 root.mainloop()
 
