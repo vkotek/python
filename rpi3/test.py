@@ -15,6 +15,7 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
         self.init_window()
+        print("Initialized window")
     
     def init_window(self):
         self.master.title("GUI")
@@ -34,14 +35,15 @@ class Window(Frame):
         toggleButton.place(x=20,y=20)
     
     def client_exit(self):
+        print("Exiting")
         exit()
     
     def client_toggle(self):
-        exit()
+        print("Toggle but exit")
         
 
 root = Tk()
-w = Label(root, text="Hello, world!")
+w = Label(root, text="MyScript")
 root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
 root.geometry(res.format(root.winfo_screenwidth(), root.winfo_screenheight()))
