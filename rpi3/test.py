@@ -3,6 +3,7 @@
 res = "320x480"
 
 from tkinter import *
+import time
 
 class Window(Frame):
     
@@ -10,7 +11,8 @@ class Window(Frame):
         Frame.__init__(self, master)
         self.master = master
         self.init_window()
-        print("Initialized window")
+        self.state = 0
+        print(format(time.ctime()))
     
     def init_window(self):
         self.master.title("GUI")
@@ -23,22 +25,30 @@ class Window(Frame):
         #file.add_command(label="exit", command=self.client_exit)
         #menu.add_cascade(label="file", menu=file)
         
-        quitButton = Button(self, text = "Quit", command=self.client_exit)
-        quitButton.place(x=260,y=200)
+        self.quitButton = Button(self, text = "Quit", padx="20", command=self.client_exit)
+        self.quitButton.config(bg='blue')
+        self.quitButton.place(x=400,y=280)
         
-        toggleButton = Button(self, text = "DO", command=self.client_toggle)
-        toggleButton.place(x=20,y=20)
-    
+        self.toggleButton = Button(self, text = "ON", padx="20", command=self.client_toggle)
+        self.toggleButton.place(x=20,y=20)
+        
     def client_exit(self):
         print("Exiting")
         exit()
     
     def client_toggle(self):
         print("Toggle but exit")
+        if self.state == 0:
+            self.toggleButton.config(text="OFF")
+            self.state = 1
+        else:
+            self.toggleButton.config(text="ON")
+            self.state = 0
         
 
 root = Tk()
-w = Label(root, text="MyScript")
+#w = Label(root, text="MyScript")
+root.configure(bg='gray')
 root.overrideredirect(True)
 #root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
 root.geometry("480x320")
