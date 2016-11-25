@@ -2,7 +2,7 @@
 """
 Created on Fri Dec 26 23:51:57 2014
 
-@author: pirate
+@author: vkotek
 """
 
 import csv
@@ -18,6 +18,7 @@ dictionary = [line.split('\n') for line in open(words_filtered, 'r').readlines()
 
 words_values_dict = {}
 
+# Filters word file for files >16 chars.
 def filter_words():
     f = open(words_original, 'r')
     w = open(words_filtered, 'w')
@@ -86,11 +87,13 @@ def permutate(word):
     print("<<< SEARCHING WORDS >>>")
     wordlist = {}
     for a in range(2,len(word)+1):
+        awords = []
         wordlist[a] = [''.join(i) for i in permutations(word,a)]
         print("Searching", a,"letter words.")
         for x in wordlist[a]:
             for y in dictionary:
-                if x == y[0]:            
+                if x not in awords and x == y[0]:
+                    awords.append(x)
                     print(x)
             else:
                 pass
@@ -122,7 +125,14 @@ def overview(word):
     Word:\t%s\t\tCombs:\t\t%s
     Exists:\t%s\t\t\tBegin w/:\t%s 
     Points:\t%s\t\t\tEnd w/:\t\t%s
-    """ % (word.capitalize().ljust(15),count_permute(word),checkword(word),start,checkvalue(word),end)
+    """ % (
+        word.capitalize().ljust(15),
+        count_permute(word),
+        checkword(word),
+        start,
+        checkvalue(word),
+        end
+        )
     
 while True:
     print("-"*70)
