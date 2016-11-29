@@ -3,7 +3,6 @@
 res = "320x480"
 
 from tkinter import *
-from tkinter.colorchooser import *
 
 class Window(Frame):
     
@@ -29,27 +28,20 @@ class Window(Frame):
         
         toggleButton = Button(self, text = "DO", command=self.client_toggle)
         toggleButton.place(x=20,y=20)
-   
-        colorButton = Button(self, text="Color..", command=self.getColor).pack()
-
-        
+    
     def client_exit(self):
         print("Exiting")
         exit()
     
     def client_toggle(self):
         print("Toggle but exit")
-
-    def getColor():
-        color = askcolor()
-        print(color)
         
 
 root = Tk()
 w = Label(root, text="MyScript")
 root.overrideredirect(True)
-#root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
-root.geometry("480x320")
+#900root.geometry("{0}x{1}+0+0".format(root.winfo_screenwidth(), root.winfo_screenheight()))
+root.geometry("320x480")
 root.focus_set()
 
 app = Window(root)
