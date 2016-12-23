@@ -3,7 +3,11 @@
 res = "320x480"
 
 from tkinter import *
+<<<<<<< HEAD
+from tkinter.colorchooser import *
+=======
 import time
+>>>>>>> eb59a3eb884ef5905e0c9de32ccb3378eae4f254
 
 class Window(Frame):
     
@@ -32,18 +36,34 @@ class Window(Frame):
         self.toggleButton = Button(self, text = "ON", padx="20", command=self.client_toggle)
         self.toggleButton.place(x=20,y=20)
         
+<<<<<<< HEAD
+        toggleButton = Button(self, text = "DO", command=self.client_toggle)
+        toggleButton.place(x=20,y=20)
+   
+        colorButton = Button(self, text="Color..", command=self.getColor).pack()
+
+        
+=======
+>>>>>>> eb59a3eb884ef5905e0c9de32ccb3378eae4f254
     def client_exit(self):
         print("Exiting")
         exit()
     
     def client_toggle(self):
         print("Toggle but exit")
+<<<<<<< HEAD
+
+    def getColor():
+        color = askcolor()
+        print(color)
+=======
         if self.state == 0:
             self.toggleButton.config(text="OFF")
             self.state = 1
         else:
             self.toggleButton.config(text="ON")
             self.state = 0
+>>>>>>> eb59a3eb884ef5905e0c9de32ccb3378eae4f254
         
 
 root = Tk()
