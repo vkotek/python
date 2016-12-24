@@ -1,4 +1,5 @@
 #! /usr/local/bin/python3
+# Python Challenge 2
 
 fl = "/Users/ares/Documents/Scripts/python/challenge/02.txt"
 
