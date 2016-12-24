@@ -3,7 +3,6 @@
 fl = "/Users/ares/Documents/Scripts/python/challenge/03.txt"
 
 t = open(fl, 'r').read().replace('\n','')
-tx   = "sxbXzJwjxAITPpPWoGOnPWcSbHFZjBizKEBUECMLUKQRvVvWgIudKQkNjJmlUoUCaAHiTKVKcIpMelTTTtJ\nAYlVsrjBTLsWuyYwCJuJaewQSrzwXJNLAflzrZXBBEOCTtItNptaJkriIEhufpNysjJpeWbWcFqdEsiGDDdDDD".replace('\n','')
 
 out = ""
 
@@ -16,12 +15,12 @@ for x in range(3, len(t)-3):
         #print(t[x-3:x+4])
         out += t[x]
 
-# print(out)
+print(out)
+
 
 # regex attempt
 import re
 
-reg = "[A-Z]{3}"
-
-m = re.search(reg, t)
-print(m.group(0))
+reg = "[A-Z]{3}[a-z]{1}[A-Z]{3}"
+m = re.findall(reg, t)
+print( "".join([x[3] for x in m]) )
