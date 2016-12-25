@@ -1,21 +1,51 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/python
+# coding: utf-8
 
-import urllib2, json
-from math import sqrt, atan, pi
+try:
+    import urllib2, json
+    import ConfigParser
+    from math import sqrt, atan, pi
+except:
+    print "Error importing modules, exiting."
+    exit()
+
+config = ConfigParser.RawConfigParser()
+config.read('config.ini')
+apiKey = config.get('settings','api')
+apiWC = "http://opendata.iprpraha.cz/CUR/FSV/FSV_VerejnaWC_b/WGS_84/FSV_VerejnaWC_b.json"
+
+def parseToilets():
+
+    urlJSON = json.loads(urllib2.urlopen(apiWC).read())
+
+    toilets = []
+
+    for item in urlJSON['features']:
+        toilet = {}
+        jcord = item['geometry']['coordinates']
+        toilet["x"] = jcord[0]
+        toilet["y"] = jcord[1]
+
+        toilets.append(toilet)
+        print toilet
+
+parseToilets()
+
+exit()
 
 # Returns list of nearest bathrooms to given coordinates
 def getToilets(coords):
-    
+
     # URL of Prague OpenData public bathrooms API
     url = "http://opendata.iprpraha.cz/CUR/FSV/FSV_VerejnaWC_b/WGS_84/FSV_VerejnaWC_b.json"
-    
+
     # Open URL and load JSON into dict?
     urlJSON = json.loads(urllib2.urlopen(url).read())
-    
+
     # Set resutls var and wcID (primary key)
     results = []
     wcID = 0
-    
+
     # Iterate through toilets in dict
     for item in urlJSON['features']:
         wcID+=1
@@ -23,9 +53,8 @@ def getToilets(coords):
         # Get raw coordinates
         coor_x = jsonCoords[0]
         coor_y = jsonCoords[1]
-        # Get difference in coordiantes and multiply to conver to meters (rough estimate!!)
+        # Get difference in coordiantes and multiply to conver to meters (rough estimate)
         # Assuming that 1 degree is 1/360 the circumference of earth
-        # This is wrong because it shrinks as you move away from the equator, but too bad.
         dis_x = -(coords['lng'] - coor_x)*104000
         dis_y = -(coords['lat'] - coor_y)*104000
         # use inverse tangent to get the angle formed by the opposite and adjacent sides (coord. diffs)
@@ -68,8 +97,8 @@ def getToilets(coords):
         except:
             wcPrice = "N/A"
             continue
-            
-        # Add results to the results list    
+
+        # Add results to the results list
         results.append([wcID,dis,dis_x,dis_y,round(head,2),wcType,wcLocation,wcPrice,wcOpen])
     return results
 
@@ -84,12 +113,12 @@ def showResults(results):
         i+=1
         if i>6: # Sets the number of closest toilets to show
             break
-            
+
 # Converts text address to GPS coordinates
 def googleGeocode(address):
 
     # WARNING: Google API key has been removed!!
-    googleKey = "REMOVED"
+    googleKey = apiKey
     googleUrl = "https://maps.googleapis.com/maps/api/geocode/json?"
     googleParams = "address=" + address.replace(" ", "+") + "&key=" + googleKey
     coords = json.loads(urllib2.urlopen(googleUrl+googleParams).read())
