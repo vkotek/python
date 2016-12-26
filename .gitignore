@@ -60,3 +60,4 @@ target/
 # Config and passwords
 *.cfg
 *.ini
+*.config
