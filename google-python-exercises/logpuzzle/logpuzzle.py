@@ -20,42 +20,63 @@ Here's what a puzzle url looks like:
 
 
 def read_urls(filename):
-  """Returns a list of the puzzle urls from the given log file,
-  extracting the hostname from the filename itself.
-  Screens out duplicate urls and returns the urls sorted into
-  increasing order."""
-  # +++your code here+++
-  
+    """Returns a list of the puzzle urls from the given log file,
+    extracting the hostname from the filename itself.
+    Screens out duplicate urls and returns the urls sorted into
+    increasing order."""
+
+    reg = "GET (.+puzzle.+) HTTP"
+    with open(filename,'r') as l:
+        x = re.findall(reg, l.read())
+    x_unique = []
+    for item in x:
+        if item not in x_unique and item.find(filename):
+            x_unique.append(item)
+    nx = ["http://%s%s" % (filename[filename.index('_')+1:], z) for z in x_unique]
+    nx.sort(key=lambda term: term[-8:-4])
+    return nx
+
 
 def download_images(img_urls, dest_dir):
-  """Given the urls already in the correct order, downloads
-  each image into the given directory.
-  Gives the images local filenames img0, img1, and so on.
-  Creates an index.html in the directory
-  with an img tag to show each local image file.
-  Creates the directory if necessary.
-  """
-  # +++your code here+++
-  
+    """Given the urls already in the correct order, downloads
+    each image into the given directory.
+    Gives the images local filena   mes img0, img1, and so on.
+    Creates an index.html in the directory
+    with an img tag to show each local image file.
+    Creates the directory if necessary.
+    """
+    f = open('output.html', 'w')
+    f.write('<html><body>')
+
+    for img_url in img_urls:
+        template = "<img src='%s'>" % img_url
+        f.write(template)
+        #a = urllib.urlretrieve(img_url, dest_dir)
+
+    f.write('</body></html>')
+    f.close()
+
+
 
 def main():
-  args = sys.argv[1:]
+    args = sys.argv[1:]
 
-  if not args:
-    print 'usage: [--todir dir] logfile '
-    sys.exit(1)
+    if not args:
+        print('usage: [--todir dir] logfile ')
+        sys.exit(1)
 
-  todir = ''
-  if args[0] == '--todir':
-    todir = args[1]
-    del args[0:2]
+    todir = ''
+    if args[0] == '--todir':
+        todir = args[1]
+        del args[0:2]
 
-  img_urls = read_urls(args[0])
+    img_urls = read_urls(args[0])
 
-  if todir:
-    download_images(img_urls, todir)
-  else:
-    print '\n'.join(img_urls)
+    if todir:
+        download_images(img_urls, todir)
+    else:
+        print('\n'.join(img_urls))
+        pass
 
 if __name__ == '__main__':
-  main()
+    main()
