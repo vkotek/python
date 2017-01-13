@@ -1,9 +1,0 @@
-import requests
-import re
-base_url = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing="
-m = str(12345)
-for i in range(399):
-    url = base_url+m
-    res = requests.get(url)
-    text = res.text
-    m = re.findall(r"\d+", text)[0]
